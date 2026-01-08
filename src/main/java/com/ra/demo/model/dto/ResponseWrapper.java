@@ -1,2 +1,14 @@
-package com.ra.demo.model.dto;public class ResponseWrapper {
+package com.ra.demo.model.dto;
+
+import lombok.*;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
+public class ResponseWrapper<T> {
+    private String message;
+    private int code;
+    private T dataResponse;
 }

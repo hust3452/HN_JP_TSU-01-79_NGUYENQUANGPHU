@@ -1,2 +1,5 @@
-package com.ra.demo.model.constant;public class Status {
+package com.ra.demo.model.constant;
+
+public enum Status {
+    CANCEL,DO,DONE
 }
