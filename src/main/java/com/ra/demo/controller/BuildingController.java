@@ -65,7 +65,7 @@ public class BuildingController {
             @RequestParam(name = "size", defaultValue = "10") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<BuildingResponse> buildingResponseDTO = buildingService.searchBuildingByName(String.valueOf(status), pageable);
+        Page<BuildingResponse> buildingResponseDTO = buildingService.searchBuildingByStatus(status, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(
                 ResponseWrapper.builder()
                         .code(HttpStatus.OK.value())
