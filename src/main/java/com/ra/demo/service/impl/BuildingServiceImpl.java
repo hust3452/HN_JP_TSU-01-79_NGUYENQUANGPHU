@@ -1,5 +1,6 @@
 package com.ra.demo.service.impl;
 
+import com.ra.demo.model.constant.Status;
 import com.ra.demo.model.dto.request.BuildingDTO;
 import com.ra.demo.model.dto.response.BuildingResponse;
 import com.ra.demo.model.entity.Building;
@@ -66,7 +67,26 @@ public class BuildingServiceImpl implements BuildingService {
 
     @Override
     public Page<BuildingResponse> searchBuildingByName(String name, Pageable pageable) {
-        Page<Building> buildings = buildingRepository.findByName(name, pageable);
+        Page<Building> buildings = buildingRepository.findByNameContaining(name, pageable);
+        return buildings.map(building ->
+                BuildingResponse.builder()
+                        .id(building.getId())
+                        .name(building.getName())
+                        .area(building.getArea())
+                        .area_unit(building.getArea_unit())
+                        .start_date(building.getStart_date())
+                        .time(building.getTime())
+                        .time_unit(building.getTime_unit())
+                        .design(building.getDesign())
+                        .content(building.getContent())
+                        .status(building.getStatus())
+                        .build()
+        );
+    }
+
+    @Override
+    public Page<BuildingResponse> searchBuildingByStatus(Status status, Pageable pageable) {
+        Page<Building> buildings = buildingRepository.findByStatusEquals(status, pageable);
         return buildings.map(building ->
                 BuildingResponse.builder()
                         .id(building.getId())

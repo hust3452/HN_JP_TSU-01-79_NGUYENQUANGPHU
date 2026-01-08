@@ -1,5 +1,6 @@
 package com.ra.demo.service;
 
+import com.ra.demo.model.constant.Status;
 import com.ra.demo.model.dto.request.BuildingDTO;
 import com.ra.demo.model.dto.response.BuildingResponse;
 import com.ra.demo.model.entity.Building;
@@ -13,6 +14,8 @@ public interface BuildingService {
     BuildingResponse save(BuildingDTO buildingDTO);
 
     Page<BuildingResponse> searchBuildingByName(String name, Pageable pageable);
+
+    Page<BuildingResponse> searchBuildingByStatus(Status status, Pageable pageable);
 
     Building findById(long id);
 

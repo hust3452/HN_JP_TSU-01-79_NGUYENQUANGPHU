@@ -1,5 +1,6 @@
 package com.ra.demo.controller;
 
+import com.ra.demo.model.constant.Status;
 import com.ra.demo.model.dto.ResponseWrapper;
 import com.ra.demo.model.dto.request.BuildingDTO;
 import com.ra.demo.model.dto.response.BuildingResponse;
@@ -49,6 +50,22 @@ public class BuildingController {
     ) {
         Pageable pageable = PageRequest.of(page, size);
         Page<BuildingResponse> buildingResponseDTO = buildingService.searchBuildingByName(name, pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                ResponseWrapper.builder()
+                        .code(HttpStatus.OK.value())
+                        .message("Search building successfully")
+                        .dataResponse(buildingResponseDTO)
+                        .build());
+    }
+
+    @GetMapping("/searchByStatus")
+    public ResponseEntity<?> searchBuildings(
+            @RequestParam(name = "status", required = true) Status status,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<BuildingResponse> buildingResponseDTO = buildingService.searchBuildingByName(String.valueOf(status), pageable);
         return ResponseEntity.status(HttpStatus.OK).body(
                 ResponseWrapper.builder()
                         .code(HttpStatus.OK.value())
